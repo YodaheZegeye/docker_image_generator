@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     echo 'Installing dependencies'
-                    // sh 'npm install'
+                    sh 'npm install'
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building angular app'
-                    // sh 'npm run build --prod'
+                    sh 'npm run build --prod'
                 }
             }
         }

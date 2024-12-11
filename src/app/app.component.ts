@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  selector: 'app-root', // The HTML tag for this component
+  templateUrl: './app.component.html', // Template file
+  styleUrls: ['./app.component.css'] // Stylesheet file (optional)
 })
 export class AppComponent {
-  title = 'docker-image-generator';
+  title = 'My Angular App'; // A simple property
+  description = 'This is a basic Angular application.'; // Another property
+  link = 'Click here to go to my website'
 }
