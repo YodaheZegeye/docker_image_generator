@@ -1,10 +1,12 @@
 pipeline {
-    agent any 
+    agent {
+        label 'docker-agent-angular'
+    }
 
-    // environment {
-    //     NODEJS_HOME = tool 'NodeJS 16' // Adjust to your Node.js version in Jenkins
-    //     PATH = "${NODEJS_HOME}/bin:${env.PATH}"
-    // }
+    environment {
+        NODEJS_HOME = tool 'NodeJS 16' // Adjust to your Node.js version in Jenkins
+        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
+    }
 
     stages {
         stage('Clone Repository') {
