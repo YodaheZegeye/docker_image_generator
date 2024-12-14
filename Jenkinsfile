@@ -1,10 +1,9 @@
 pipeline {
-    agent any
-
-    // environment {
-    //     NODEJS_HOME = tool 'NodeJS 16' // Adjust to your Node.js version in Jenkins
-    //     PATH = "${NODEJS_HOME}/bin:${env.PATH}"
-    // }
+    agent {
+        docker {
+            image 'node:16-alpine'
+        }
+    }
 
     stages {
         stage('Clone Repository') {
