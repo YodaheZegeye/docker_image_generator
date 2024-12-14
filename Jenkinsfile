@@ -1,6 +1,8 @@
 pipeline {
-    docker {
-        image 'node:16-alpine'
+    agent {
+        docker {
+            image 'node:16-alpine'
+        }
     }
 
     environment {
