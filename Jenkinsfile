@@ -1,108 +1,63 @@
-// pipeline {
-//     agent {
-//         docker {
-//             image 'node:16-alpine'
-//         }
-//     }
+pipeline {
+    agent any
 
-//     environment {
-//         NODEJS_HOME = tool 'NodeJS 16' // Adjust to your Node.js version in Jenkins
-//         PATH = "${NODEJS_HOME}/bin:${env.PATH}"
-//     }
+    environment {
+        NODEJS_HOME = tool 'NodeJS 16' // Adjust to your Node.js version in Jenkins
+        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
+    }
 
-//     stages {
-//         stage('Clone Repository') {
-//             steps {
-//                 git branch: 'main', url: 'https://github.com/YodaheZegeye/docker_image_generator.git'
-//             }
-//         }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/YodaheZegeye/docker_image_generator.git'
+            }
+        }
 
-//         stage('Install Dependencies') {
-//             steps {
-//                 script {
-//                     echo 'Installing dependencies'
-//                     sh 'npm install'
-//                 }
-//             }
-//         }
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    echo 'Installing dependencies'
+                    sh 'npm install'
+                }
+            }
+        }
 
-//         stage('Build Angular App') {
-//             steps {
-//                 script {
-//                     echo 'Building angular app'
-//                     sh 'npm run build --prod'
-//                 }
-//             }
-//         }
+        stage('Build Angular App') {
+            steps {
+                script {
+                    echo 'Building angular app'
+                    sh 'npm run build --prod'
+                }
+            }
+        }
 
-//         stage('Build Docker Image') {
-//             steps {
-//                 script {
-//                     echo 'Building Docker Image'
-//                     // def app = docker.build("your-dockerhub-username/angular-node-app:${env.BUILD_NUMBER}")
-//                 }
-//             }
-//         }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    echo 'Building Docker Image'
+                    // def app = docker.build("your-dockerhub-username/angular-node-app:${env.BUILD_NUMBER}")
+                }
+            }
+        }
 
-//         stage('Push Docker Image') {
-//             steps {
-//                 script {
-//                     echo 'Pushing Docker Image'
-//                     // docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials-id') {
-//                     //     app.push()
-//                 }
-//             }
-//         }
-//     }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    echo 'Pushing Docker Image'
+                    // docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials-id') {
+                    //     app.push()
+                }
+            }
+        }
+    }
     
 
-//     post {
-//         success {
-//             echo 'Docker image built and pushed successfully!'
-//         }
-//         failure {
-//             echo 'Pipeline failed.'
-//         }
-//     }
-// }
-
-
-pipeline {
-    agent { 
-        node {
-            label 'docker-agent-python'
-            }
-      }
-    triggers {
-        pollSCM '* * * * *'
-    }
-    stages {
-        stage('Build') {
-            steps {
-                echo "Building.."
-                sh '''
-                cd myapp
-                pip install -r requirements.txt
-                '''
-            }
+    post {
+        success {
+            echo 'Docker image built and pushed successfully!'
         }
-        stage('Test') {
-            steps {
-                echo "Testing.."
-                sh '''
-                cd myapp
-                python3 hello.py
-                python3 hello.py --name=Brad
-                '''
-            }
-        }
-        stage('Deliver') {
-            steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
-            }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
