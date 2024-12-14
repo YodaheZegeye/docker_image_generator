@@ -1,6 +1,6 @@
 pipeline {
-    agent {
-        label 'docker-agent-angular'
+    docker {
+        image 'node:16-alpine'
     }
 
     environment {
